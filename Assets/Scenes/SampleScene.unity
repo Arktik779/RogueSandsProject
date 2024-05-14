@@ -48427,6 +48427,31 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!1 &1275673097 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 741864818052885297, guid: ddbf5325449b1e3429436feea21c7618, type: 3}
+  m_PrefabInstance: {fileID: 2023509216}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1275673098 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -2896528788270131237, guid: ddbf5325449b1e3429436feea21c7618, type: 3}
+  m_PrefabInstance: {fileID: 2023509216}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1275673099
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1275673097}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ca6ededcf665104cbd69846b74f4623, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parentOverride: {fileID: 1275673098}
+  isRightHandSlot: 1
+  currentWeaponModel: {fileID: 0}
 --- !u!43 &1281606125
 Mesh:
   m_ObjectHideFlags: 0
@@ -53731,6 +53756,7 @@ GameObject:
   - component: {fileID: 1428489819}
   - component: {fileID: 1428489818}
   - component: {fileID: 1428489820}
+  - component: {fileID: 1428489821}
   m_Layer: 10
   m_Name: Player2
   m_TagString: Untagged
@@ -53854,6 +53880,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isInteracting: 0
+--- !u!114 &1428489821
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1428489814}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11253339242795047ad20d08b49f5db3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rightWeapon: {fileID: 11400000, guid: 2093bce3ca13630479707431f7dfaa6e, type: 2}
 --- !u!4 &1430779585 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3588017896692974094, guid: 5c02cf4f49d589243b4e8611537b4f5a, type: 3}
@@ -79048,6 +79087,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: ddbf5325449b1e3429436feea21c7618, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2023509219}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: ddbf5325449b1e3429436feea21c7618, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2023509221}
+    - targetCorrespondingSourceObject: {fileID: 741864818052885297, guid: ddbf5325449b1e3429436feea21c7618, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1275673099}
   m_SourcePrefab: {fileID: 100100000, guid: ddbf5325449b1e3429436feea21c7618, type: 3}
 --- !u!4 &2023509217 stripped
 Transform:
@@ -79070,6 +79115,18 @@ MonoBehaviour:
   inputHandler: {fileID: 0}
   playerLocomotion: {fileID: 0}
   canRotate: 1
+--- !u!114 &2023509221
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1083648410}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be6910776edd75447a011b2e162e4b0b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!43 &2024904873
 Mesh:
   m_ObjectHideFlags: 0
