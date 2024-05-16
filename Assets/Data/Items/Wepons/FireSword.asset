@@ -16,3 +16,6 @@ MonoBehaviour:
   itemName: FireSword
   modelPrefab: {fileID: 6497110708650677019, guid: 4e9bdc1f87444d54799bb7ca61007851, type: 3}
   isUnarmed: 0
+  OH_Light_Attack_1: AttackDown01
+  OH_Heavy_Attack_1: HeavyAttack01
+  OH_Light_Attack_02: OH_Light_Attack_02

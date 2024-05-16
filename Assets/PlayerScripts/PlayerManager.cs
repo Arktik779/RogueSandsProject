@@ -13,14 +13,20 @@ public class PlayerManager : MonoBehaviour
         PlayerLocomotion playerLocomotion;
 
         public bool isInteracting;
+        public bool canDoCombo;
 
-        
+        private void Awake()
+        {
+            cameraHandler = FindObjectOfType<CameraHandler>();
+        }
+
+
         void Start()
     {
         inputHandler = GetComponent<InputHandler>();
         anim = GetComponentInChildren<Animator>();
         playerLocomotion = GetComponent<PlayerLocomotion>();
-        cameraHandler = CameraHandler.singleton;
+        
         }
 
     
@@ -28,6 +34,7 @@ public class PlayerManager : MonoBehaviour
         {
         float delta = Time.deltaTime;
         isInteracting = anim.GetBool("isInteracting");
+            canDoCombo = anim.GetBool("canDoCombo");
        
             
         inputHandler.TickInput(delta);
@@ -49,6 +56,8 @@ public class PlayerManager : MonoBehaviour
         private void LateUpdate()
         {
             inputHandler.rollFlag = false;
+            inputHandler.rb_Input = false;
+            inputHandler.rt_Input = false;
         }
 
     }

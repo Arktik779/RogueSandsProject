@@ -6,6 +6,7 @@ namespace EK {
     public class WeaponSlotManager : MonoBehaviour
     {
         WeaponHolderSlot rightHandSlot;
+        DamageCollider rightHandDamageCollider;
 
         private void Awake()
         {
@@ -23,8 +24,27 @@ namespace EK {
             if(isRight)
             {
                 rightHandSlot.LoadWeaponModel(weaponItem);
+                LoadRightWeaponDamageCollider();
             }
         }
+        #region Handle Weapon's Damage Collider
+        
+
+        private void LoadRightWeaponDamageCollider()
+        {
+            rightHandDamageCollider = rightHandSlot.currentWeaponModel.GetComponentInChildren<DamageCollider>();
+        }
+
+        public void OpenRightDamageCollider()
+        {
+            rightHandDamageCollider.EnableDamageCollider();
+        }
+
+       public void CloseRightDamageCollider() 
+        {
+            rightHandDamageCollider.DisableDamageCollider();
+        }
+        #endregion
     }
 
 
