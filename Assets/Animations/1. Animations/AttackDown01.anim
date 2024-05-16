@@ -67625,7 +67625,7 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 1
+  - time: 0.96666664
     functionName: EnableCombo
     data: 
     objectReferenceParameter: {fileID: 0}

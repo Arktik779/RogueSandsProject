@@ -10,7 +10,9 @@ namespace EK {
         public int maxHealth;
         public int currentHealth;
 
+
         Animator animator;
+        public HealthBar healthbar;
         private void Awake()
         {
             animator = GetComponentInChildren<Animator>();
