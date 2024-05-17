@@ -4,12 +4,9 @@ using UnityEngine;
 
 
 namespace EK { 
-    public class PlayerStats : MonoBehaviour
+    public class PlayerStats : CharacterStats
     {
-        public int healthLevel = 10;
-        public int maxHealth;
-        public int currentHealth;
-
+       
         public HealthBar healthbar;
         AnimatorHandler animatorHandler;
 

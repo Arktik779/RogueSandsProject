@@ -4,13 +4,8 @@ using UnityEngine;
 
 
 namespace EK { 
-    public class EnemyStats : MonoBehaviour
+    public class EnemyStats : CharacterStats
     {
-        public int healthLevel = 10;
-        public int maxHealth;
-        public int currentHealth;
-
-
         Animator animator;
         public HealthBar healthbar;
         private void Awake()

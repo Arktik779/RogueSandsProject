@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace EK { 
-public class PlayerManager : MonoBehaviour
+public class PlayerManager : CharacterManager
 {
         InputHandler inputHandler;
         Animator anim;
