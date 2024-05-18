@@ -20,20 +20,22 @@ namespace EK {
 
             for (int i = 0; i < colliders.Length; i++)
             {
-                CharacterStats characterStats = colliders[i].transform.GetComponent<CharacterStats>();
+                CharacterStats characterStats = colliders[i].transform.GetComponentInParent<CharacterStats>();
                 
 
                 if (characterStats != null )
                 {
                     //check for team id
-
                     Vector3 targetDirection = characterStats.transform.position - transform.position;
                     float viewableAngle = Vector3.Angle(targetDirection, transform.forward);
+                    
 
                     if (viewableAngle > enemyManager.minimumDetectionAngle && viewableAngle < enemyManager.maximumDetectionAngle)
                     {
+                        
                         currentTarget = characterStats;
                     }
+                    
                 }
             }
         }   

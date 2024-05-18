@@ -54067,7 +54067,7 @@ GameObject:
   - component: {fileID: 1428489821}
   - component: {fileID: 1428489822}
   - component: {fileID: 1428489823}
-  m_Layer: 3
+  m_Layer: 9
   m_Name: Player2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -54083,7 +54083,7 @@ Transform:
   m_GameObject: {fileID: 1428489814}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.032840073, z: 0}
+  m_LocalPosition: {x: 10.359995, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -55651,7 +55651,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 372fe95b174c45548b5cef68a8c377c0, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 372fe95b174c45548b5cef68a8c377c0, type: 3}
       propertyPath: m_LocalRotation.x
@@ -55659,7 +55659,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 372fe95b174c45548b5cef68a8c377c0, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 372fe95b174c45548b5cef68a8c377c0, type: 3}
       propertyPath: m_LocalRotation.z
@@ -55671,7 +55671,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 372fe95b174c45548b5cef68a8c377c0, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 180
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 372fe95b174c45548b5cef68a8c377c0, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -75418,7 +75418,7 @@ Transform:
   m_GameObject: {fileID: 1950970043}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 6.06}
+  m_LocalPosition: {x: 0, y: 0, z: -5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -75485,7 +75485,7 @@ MonoBehaviour:
   currentTarget: {fileID: 0}
   detectionLayer:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 512
 --- !u!114 &1950970050
 MonoBehaviour:
   m_ObjectHideFlags: 0

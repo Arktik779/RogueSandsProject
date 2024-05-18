@@ -9,7 +9,15 @@ namespace EK {
         public int maxHealth;
         public int currentHealth;
 
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = Color.red;
+            Vector3 pos = transform.position + transform.up;
+            Gizmos.DrawLine(pos, pos + transform.forward * 5);
+        }
+
     }
+   
 
 
 }

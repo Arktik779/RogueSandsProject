@@ -17,6 +17,7 @@ public class PlayerLocomotion : MonoBehaviour
         public new Rigidbody rigidbody;
         public GameObject normalCamera;
 
+
         [Header("Movement Stats")]
         [SerializeField]
         float movementSpeed = 5;

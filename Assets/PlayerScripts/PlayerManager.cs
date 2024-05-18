@@ -15,6 +15,7 @@ public class PlayerManager : CharacterManager
         public bool isInteracting;
         public bool canDoCombo;
 
+
         private void Awake()
         {
             cameraHandler = FindObjectOfType<CameraHandler>();
