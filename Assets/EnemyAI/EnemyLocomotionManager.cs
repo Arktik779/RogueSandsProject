@@ -60,6 +60,9 @@ namespace EK {
 
         public void HandleMoveToTarget()
         {
+            if (enemyManager.isPerformingAction)
+                return;
+
             Vector3 targetDirection = currentTarget.transform.position - transform.position;
             distanceFromTarget = Vector3.Distance(currentTarget.transform.position, transform.position);
             float viewableAngle = Vector3.Angle(targetDirection, transform.forward);
