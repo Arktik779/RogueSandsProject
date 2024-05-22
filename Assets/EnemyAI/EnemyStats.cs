@@ -25,6 +25,8 @@ namespace EK {
 
         public void TakeDamage(int damage)
         {
+            if (isDead)
+                return;
             currentHealth = currentHealth - damage;
 
             animator.Play("TakeDamage_02");
@@ -34,6 +36,7 @@ namespace EK {
             {
                 currentHealth = 0;
                 animator.Play("Death_01");
+                isDead = true;
             }
         }
     }

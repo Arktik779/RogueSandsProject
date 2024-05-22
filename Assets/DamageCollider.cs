@@ -39,6 +39,7 @@ namespace EK {
                     playerStats.TakeDamage(currentWeaponDamage);
                 }
             }
+
             if (collision.tag == "Enemy")
             {
                 EnemyStats enemyStats = collision.GetComponent<EnemyStats>();

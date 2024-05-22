@@ -9,6 +9,8 @@ namespace EK {
         public int maxHealth;
         public int currentHealth;
 
+        public bool isDead;
+
         private void OnDrawGizmos()
         {
             Gizmos.color = Color.red;

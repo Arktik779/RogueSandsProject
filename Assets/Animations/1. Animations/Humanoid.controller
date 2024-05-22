@@ -116,6 +116,7 @@ AnimatorState:
   m_StateMachineBehaviours:
   - {fileID: -1102975765040041627}
   - {fileID: 2146233541853146591}
+  - {fileID: 2363867866058857561}
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
@@ -216,6 +217,12 @@ AnimatorController:
     m_DefaultBool: 0
     m_Controller: {fileID: 9100000}
   - m_Name: canDoCombo
+    m_Type: 4
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 9100000}
+  - m_Name: isUsingRightHand
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
@@ -330,6 +337,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetBool: canDoCombo
+  status: 0
+--- !u!114 &2363867866058857561
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c272be4a4986ea439be2a840e380af1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetBool: isUsingRightHand
   status: 0
 --- !u!206 &4803936524191173125
 BlendTree:

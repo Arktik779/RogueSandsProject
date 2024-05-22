@@ -5,11 +5,14 @@ using UnityEngine;
 namespace EK { 
     public class WeaponSlotManager : MonoBehaviour
     {
+
+        PlayerManager playerManager;
         WeaponHolderSlot rightHandSlot;
         DamageCollider rightHandDamageCollider;
 
         private void Awake()
         {
+            playerManager = GetComponentInParent<PlayerManager>();
             WeaponHolderSlot[] weaponHolderSlots = GetComponentsInChildren<WeaponHolderSlot>();
             foreach (WeaponHolderSlot weaponSlot in weaponHolderSlots)
             {
@@ -35,14 +38,20 @@ namespace EK {
             rightHandDamageCollider = rightHandSlot.currentWeaponModel.GetComponentInChildren<DamageCollider>();
         }
 
-        public void OpenRightDamageCollider()
+        public void OpenDamageCollider()
         {
-            rightHandDamageCollider.EnableDamageCollider();
+            if (playerManager.isUsingRightHand)
+            {
+                rightHandDamageCollider.EnableDamageCollider();
+            }
+            
+            
         }
 
-       public void CloseRightDamageCollider() 
+       public void CloseDamageCollider() 
         {
             rightHandDamageCollider.DisableDamageCollider();
+            
         }
         #endregion
     }

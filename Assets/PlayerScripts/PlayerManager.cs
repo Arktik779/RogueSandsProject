@@ -14,6 +14,7 @@ public class PlayerManager : CharacterManager
 
         public bool isInteracting;
         public bool canDoCombo;
+        public bool isUsingRightHand;
 
 
         private void Awake()
@@ -23,7 +24,7 @@ public class PlayerManager : CharacterManager
 
 
         void Start()
-    {
+        {
         inputHandler = GetComponent<InputHandler>();
         anim = GetComponentInChildren<Animator>();
         playerLocomotion = GetComponent<PlayerLocomotion>();
@@ -33,14 +34,16 @@ public class PlayerManager : CharacterManager
     
         void Update()
         {
-        float delta = Time.deltaTime;
-        isInteracting = anim.GetBool("isInteracting");
+            float delta = Time.deltaTime;
+            isInteracting = anim.GetBool("isInteracting");
             canDoCombo = anim.GetBool("canDoCombo");
+            isUsingRightHand = anim.GetBool("isUsingRightHand");
+
        
             
-        inputHandler.TickInput(delta);
-        playerLocomotion.HandleMovement(delta);
-        playerLocomotion.HandleRollingAndSprinting(delta);
+            inputHandler.TickInput(delta);
+            playerLocomotion.HandleMovement(delta);
+            playerLocomotion.HandleRollingAndSprinting(delta);
         }
 
         private void FixedUpdate()

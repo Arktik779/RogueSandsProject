@@ -24,6 +24,9 @@ public class PlayerLocomotion : MonoBehaviour
         [SerializeField]
         float rotationSpeed = 10;
 
+        public CapsuleCollider characterCollider;
+        public CapsuleCollider characterCollisionBlockerCollider;
+
         void Start()
         {
             rigidbody = GetComponent<Rigidbody>();
@@ -32,6 +35,8 @@ public class PlayerLocomotion : MonoBehaviour
             cameraObject = Camera.main.transform;
             myTransform = transform;
             animatorHandler.Initialize();
+
+            Physics.IgnoreCollision(characterCollider, characterCollisionBlockerCollider, true);
         }
 
        

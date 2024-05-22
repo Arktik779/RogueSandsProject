@@ -32,6 +32,8 @@ namespace EK {
 
         public void TakeDamage(int damage)
         {
+            if (isDead)
+                return;
             currentHealth = currentHealth - damage;
 
             healthbar.SetCurrentHealth(currentHealth);
@@ -43,6 +45,7 @@ namespace EK {
             {
                 currentHealth = 0;
                 animatorHandler.PlayTargetAnimation("Death_01", true);
+                isDead = true;
             }
         }
 

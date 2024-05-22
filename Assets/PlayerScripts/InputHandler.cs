@@ -27,6 +27,7 @@ public class InputHandler : MonoBehaviour
         PlayerAttacker playerAttacker;
         PlayerInventory playerInventory;
         PlayerManager playerManager;
+        AnimatorHandler animatorHandler;
 
         Vector2 movementInput;
         Vector2 cameraInput;
@@ -36,6 +37,7 @@ public class InputHandler : MonoBehaviour
            playerAttacker = GetComponent<PlayerAttacker>();
             playerInventory = GetComponent<PlayerInventory>();
             playerManager = GetComponent<PlayerManager>();
+            animatorHandler = GetComponentInChildren<AnimatorHandler>();
         }
         public void OnEnable()
         {
@@ -98,6 +100,8 @@ public class InputHandler : MonoBehaviour
 
                     if (playerManager.canDoCombo)
                         return;
+
+                    animatorHandler.anim.SetBool("isUsingRightHand", true);
                     playerAttacker.HandleLightAttack(playerInventory.rightWeapon);
                 }
 
