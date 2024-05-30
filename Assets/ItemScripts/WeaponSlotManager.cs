@@ -40,12 +40,8 @@ namespace EK {
 
         public void OpenDamageCollider()
         {
-            if (playerManager.isUsingRightHand)
-            {
-                rightHandDamageCollider.EnableDamageCollider();
-            }
             
-            
+            rightHandDamageCollider.EnableDamageCollider();   
         }
 
        public void CloseDamageCollider() 

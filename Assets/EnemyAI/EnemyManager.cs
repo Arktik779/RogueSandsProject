@@ -59,9 +59,13 @@ namespace EK
 
         private void HandleStateMachine()
         {
-          if (currentState != null)
+            if (enemyStats.isDead)
+                return;
+
+            else if (currentState != null)
             {
                 State nextState = currentState.Tick(this, enemyStats, enemyAnimationManager);
+
                 if (nextState != null)
                 {
                     SwitchToNextState(nextState);
@@ -89,6 +93,7 @@ namespace EK
                 }
             }
         }
+
 
     
 }

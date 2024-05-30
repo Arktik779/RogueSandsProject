@@ -33,7 +33,7 @@ namespace EK {
             {
                 rightHandSlot.currentWeapon = weapon;
                 rightHandSlot.LoadWeaponModel(weapon);
-                LoadWeaponsDamageCollider(false);
+                LoadWeaponsDamageCollider(true);
             } 
         }
         public void LoadWeaponsDamageCollider(bool isRight)

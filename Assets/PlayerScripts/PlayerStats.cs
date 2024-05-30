@@ -6,9 +6,11 @@ using UnityEngine;
 namespace EK { 
     public class PlayerStats : CharacterStats
     {
-       
+        public GameOverScreen GameOverScreen;
         public HealthBar healthbar;
         AnimatorHandler animatorHandler;
+        GameObject deathScreenBackground;
+        public GameObject deathScreen;
 
         private void Awake()
         {
@@ -46,6 +48,7 @@ namespace EK {
                 currentHealth = 0;
                 animatorHandler.PlayTargetAnimation("Death_01", true);
                 isDead = true;
+                deathScreen.SetActive(true);
             }
         }
 
