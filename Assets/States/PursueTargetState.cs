@@ -28,8 +28,6 @@ namespace EK {
 
 
             HandleRotateTowardsTarget(enemyManager);
-            enemyManager.navmeshAgent.transform.localPosition = Vector3.zero;
-            enemyManager.navmeshAgent.transform.localRotation = Quaternion.identity;
            
             if (distanceFromTarget <= enemyManager.maximumAttackRange)
             {

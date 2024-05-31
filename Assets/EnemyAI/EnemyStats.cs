@@ -7,7 +7,8 @@ namespace EK {
     public class EnemyStats : CharacterStats
     {
         Animator animator;
-        public HealthBar healthbar;
+
+        public UIEnemyHealthBar enemyHealthBar;
         private void Awake()
         {
             animator = GetComponentInChildren<Animator>();
@@ -16,6 +17,7 @@ namespace EK {
         {
             maxHealth = SetMaxHealthFromHealthLevel();
             currentHealth = maxHealth;
+            enemyHealthBar.SetMaxHealth(maxHealth);
         }
         private int SetMaxHealthFromHealthLevel()
         {
@@ -23,11 +25,13 @@ namespace EK {
             return maxHealth;
         }
 
+        
         public void TakeDamage(int damage)
         {
             if (isDead)
                 return;
             currentHealth = currentHealth - damage;
+            enemyHealthBar.SetHealth(currentHealth);
 
             animator.Play("TakeDamage_02");
 
