@@ -52,7 +52,7 @@ namespace EK
             HandleStateMachine();
 
             isInteracting = enemyAnimationManager.anim.GetBool("isInteracting");
-            enemyAnimationManager.anim.SetBool("isDead", enemyStats.isDead);
+            //enemyAnimationManager.anim.SetBool("isDead", enemyStats.isDead);
         }
 
         private void LateUpdate()

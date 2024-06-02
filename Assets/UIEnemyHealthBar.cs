@@ -44,10 +44,7 @@ namespace EK {
                 }
             }
 
-            if (slider.value <= 0)
-            {
-                Destroy(slider.gameObject);
-            }
+           
         }
     }
 
