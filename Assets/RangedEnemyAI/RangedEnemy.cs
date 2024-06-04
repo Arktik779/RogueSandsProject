@@ -11,6 +11,14 @@ namespace EK {
 
         public Transform player;
 
+        public Rigidbody RigidBody;
+
+        RangedEnemyAnimatorManager rangedAnimatorManager;
+
+        public EnemyMagicAttackAction[] enemyAttacks;
+
+        public EnemyMagicAttackAction currentAttack;
+
         public LayerMask whatIsGround, whatIsPlayer;
 
         //Patrolling
@@ -32,6 +40,7 @@ namespace EK {
         {
             player = GameObject.Find("Player2").transform;
             agent = GetComponent<NavMeshAgent>();
+            rangedAnimatorManager = GetComponentInChildren<RangedEnemyAnimatorManager>();
         }
         private void Update()
         {
@@ -72,27 +81,35 @@ namespace EK {
         private void ChasePlayer()
         {
             agent.SetDestination(player.position);
+            rangedAnimatorManager.anim.SetFloat("Vertical", 1, 0.1f, Time.deltaTime);
+            
+
         }
 
         private void AttackPlayer()
         {
+            rangedAnimatorManager.PlayTargetAnimation(currentAttack.actionAnimation, true);
             //Enemy stops while attacking 
             agent.SetDestination(transform.position);
             transform.LookAt(player);
+            rangedAnimatorManager.anim.SetFloat("Vertical",0, 0.1f, Time.deltaTime);
 
             if (!alreadyAttacked)
             {
+                
                 //Attack script
                 Rigidbody rb = Instantiate(projectile,bulletParent.transform.position, Quaternion.identity).GetComponent<Rigidbody>();
-
+                rangedAnimatorManager.PlayTargetAnimation(currentAttack.actionAnimation, true);
                 rb.AddForce(transform.forward * 20f,ForceMode.Impulse);
                 rb.AddForce(transform.up * 4f, ForceMode.Impulse);
+                
 
 
 
 
                 alreadyAttacked = true;
                 Invoke(nameof(ResetAttack),timeBetweenAttacks);
+                rangedAnimatorManager.PlayTargetAnimation(currentAttack.actionAnimation, true);
             }
         }
         private void ResetAttack()
