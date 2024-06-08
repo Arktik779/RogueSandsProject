@@ -52,6 +52,11 @@ namespace EK {
             }
         }
 
+        public void AddGold(int gold)
+        {
+            goldCount = goldCount + gold;
+        }
+
     }
 }
 

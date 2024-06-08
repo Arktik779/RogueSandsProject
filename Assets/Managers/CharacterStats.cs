@@ -11,6 +11,8 @@ namespace EK {
 
         public bool isDead;
 
+        public int goldCount = 0;
+
         private void OnDrawGizmos()
         {
             Gizmos.color = Color.red;

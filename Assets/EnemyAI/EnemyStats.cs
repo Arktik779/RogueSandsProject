@@ -32,7 +32,6 @@ namespace EK {
                 return;
             currentHealth = currentHealth - damage;
             enemyHealthBar.SetHealth(currentHealth);
-
             animator.Play("TakeDamage_02");
 
             //HANDLE PLAYER DEATH
