@@ -11,7 +11,7 @@ namespace EK {
 
         public bool isDead;
 
-        public int goldCount = 0;
+        public int goldCount = 150;
 
         private void OnDrawGizmos()
         {
