@@ -13,6 +13,9 @@ namespace EK {
         public GameObject playerWithScript;
         public GoldCountBar goldCountBar;
         public GameObject constructionArea;
+        public GameObject LaboratoryConstructionArea;
+        public QuestManager questManager;
+
         PlayerStats playerStats;
 
         private void Awake()
@@ -23,6 +26,10 @@ namespace EK {
             if (goldCountBar == null )
             {
                 goldCountBar = FindObjectOfType<GoldCountBar>();
+            }
+            if (questManager == null)
+            {
+                questManager = FindObjectOfType<QuestManager>();
             }
             
               
@@ -68,10 +75,16 @@ namespace EK {
                 Tent.SetActive(true);
                 EbuttonSign?.SetActive(false);
                 constructionArea.SetActive(false);
+                LaboratoryConstructionArea.SetActive(true);
 
                 if (goldCountBar != null )
                 {
                     goldCountBar.SetGoldCountText(playerStats.goldCount);
+                }
+
+                if (questManager != null)
+                {
+                    questManager.CompleteQuest();
                 }
 
             }
