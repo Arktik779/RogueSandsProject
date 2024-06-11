@@ -290,7 +290,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4096
   walkPoint: {x: 0, y: 0, z: 0}
-  walkPointRange: 2
+  walkPointRange: 10
   timeBetweenAttacks: 3
   projectile: {fileID: 3814404401537384080, guid: 62c8ec1d92901184b9441f904e9574b6, type: 3}
   bulletParent: {fileID: 5532983239651766781}

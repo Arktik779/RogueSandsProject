@@ -6,7 +6,7 @@ namespace EK
 {
     public class ChestReward : MonoBehaviour
     {
-        public int goldAwardedOnCompletion = 150;
+        public int goldAwardedOnCompletion = 350;
         public GameObject EbuttonSign;
         public GameObject GoldParticle;
         Animator anim;
