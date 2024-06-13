@@ -57,7 +57,6 @@ namespace EK
 
             if (canShoot)
             {
-                if (!playerInSightRange && !playerInAttackRange) Patrolling();
                 if (playerInSightRange && !playerInAttackRange) ChasePlayer();
                 if (playerInAttackRange && playerInSightRange) AttackPlayer();
             }
@@ -69,19 +68,6 @@ namespace EK
             }
         }
 
-        private void Patrolling()
-        {
-            if (!walkPointSet) SearchWalkPoint();
-
-            if (walkPointSet)
-                agent.SetDestination(walkPoint);
-
-            Vector3 distanceToWalkPoint = transform.position - walkPoint;
-
-            // Walkpoint reached
-            if (distanceToWalkPoint.magnitude < 1f)
-                walkPointSet = false;
-        }
 
         private void SearchWalkPoint()
         {

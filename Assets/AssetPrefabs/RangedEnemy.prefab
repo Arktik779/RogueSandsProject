@@ -294,8 +294,8 @@ MonoBehaviour:
   timeBetweenAttacks: 3
   projectile: {fileID: 3814404401537384080, guid: 62c8ec1d92901184b9441f904e9574b6, type: 3}
   bulletParent: {fileID: 5532983239651766781}
-  sightRange: 12
-  attackRange: 10
+  sightRange: 20
+  attackRange: 15
   playerInSightRange: 0
   playerInAttackRange: 0
 --- !u!136 &9179745686701734057
