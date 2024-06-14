@@ -9,6 +9,7 @@ namespace EK
         public int goldAwardedOnCompletion = 350;
         public GameObject EbuttonSign;
         public GameObject GoldParticle;
+        public GameObject Chest;
         Animator anim;
         bool playerInRange = false;
         bool isChestOpened = false; 
@@ -75,6 +76,7 @@ namespace EK
             yield return new WaitForSeconds(delay);
             anim.SetTrigger("CloseChest");
             GoldParticle.SetActive(false);
+            Chest.SetActive(false);
         }
     }
 }

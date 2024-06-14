@@ -72,6 +72,7 @@ MonoBehaviour:
   goldAwardedOnCompletion: 350
   EbuttonSign: {fileID: 1594573599279312051}
   GoldParticle: {fileID: 1660423585473449471}
+  Chest: {fileID: 1053262417331978918}
 --- !u!1 &1594573599279312051
 GameObject:
   m_ObjectHideFlags: 0

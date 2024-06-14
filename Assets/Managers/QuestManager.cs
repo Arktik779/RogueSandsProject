@@ -1,33 +1,47 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-    namespace EK { 
+namespace EK
+{
     public class QuestManager : MonoBehaviour
     {
         public Text questText;
-        private bool questCompleted = false;
+        public int currentQuestIndex = 0;
+
+        private List<string> quests = new List<string>
+        {
+            "Build a camp tent 0/1",
+            "Go inside the pyramid",
+            "Build research laboratory 0/1"
+        };
 
         private void Start()
         {
-            UpdateQuestText("Build a camp tent 0/1");
+            UpdateQuestText();
         }
 
         public void CompleteQuest()
         {
-            questCompleted = true;
-            UpdateQuestText("Build research laboratory 0/1");
-        }
-        private void UpdateQuestText(string newText) 
-        {
-        if (questText != null)
+            if (currentQuestIndex < quests.Count - 1)
             {
-                questText.text = newText;
+                currentQuestIndex++;
+                UpdateQuestText();
             }
-        
+            else
+            {
+                // All quests are completed
+                questText.text = "All quests completed!";
+            }
+        }
+
+        private void UpdateQuestText()
+        {
+            if (questText != null && currentQuestIndex < quests.Count)
+            {
+                questText.text = quests[currentQuestIndex];
+            }
         }
     }
-
 }

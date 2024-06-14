@@ -7,8 +7,9 @@ namespace EK
     {
         public GameObject EbuttonSign;
         public ParticleSystem healEffect;
+        public GameObject healthIcon;
         private bool playerInRange = false;
-        private bool used = false;  // Ensure it happens only once
+        private bool used = false;
 
         private void OnTriggerEnter(Collider other)
         {
@@ -16,7 +17,7 @@ namespace EK
             {
                 EbuttonSign.SetActive(true);
                 playerInRange = true;
-                Debug.Log("Player entered range, can heal: " + !used);
+                
             }
         }
 
@@ -26,7 +27,7 @@ namespace EK
             {
                 EbuttonSign.SetActive(false);
                 playerInRange = false;
-                Debug.Log("Player exited range");
+                
             }
         }
 
@@ -41,19 +42,14 @@ namespace EK
                     {
                         RestoreHealth(playerStats);
                         StartCoroutine(ActivateHealEffect());
-                        used = true;  // Set used to true to ensure it's only used once
-                        EbuttonSign.SetActive(false);  // Hide "Press E" UI
-                        Debug.Log("Healing activated");
+                        used = true;  
+                        EbuttonSign.SetActive(false);  
+                        healthIcon.SetActive(false);
+                        
                     }
-                    else
-                    {
-                        Debug.Log("PlayerStats not found");
-                    }
+                    
                 }
-                else
-                {
-                    Debug.Log("Healing already used");
-                }
+              
             }
         }
 
@@ -70,25 +66,21 @@ namespace EK
             }
 
             playerStats.healthbar.SetCurrentHealth(playerStats.currentHealth);
-            Debug.Log("Health restored to " + playerStats.currentHealth);
+           
         }
 
         private IEnumerator ActivateHealEffect()
         {
             if (healEffect != null)
             {
-                healEffect.gameObject.SetActive(true); // Make sure the particle system game object is active
-                healEffect.Play();  // Activate particle effect
-                Debug.Log("Particle effect activated");
-                yield return new WaitForSeconds(3);  // Duration of the particle effect
-                healEffect.Stop();  // Deactivate particle effect
-                healEffect.gameObject.SetActive(false); // Optional: deactivate the particle system game object
-                Debug.Log("Particle effect deactivated");
+                healEffect.gameObject.SetActive(true);
+                healEffect.Play();
+                yield return new WaitForSeconds(3);
+                healEffect.Stop();
+                healEffect.gameObject.SetActive(false); 
+                
             }
-            else
-            {
-                Debug.Log("Heal effect not assigned");
-            }
+            
         }
     }
 }
