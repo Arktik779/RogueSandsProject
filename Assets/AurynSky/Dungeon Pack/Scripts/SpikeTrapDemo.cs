@@ -6,8 +6,8 @@ namespace EK
 {
     public class SpikeTrapDemo : MonoBehaviour
     {
-        public Animator spikeTrapAnim; // Animator for the SpikeTrap
-        public BoxCollider spearTrapCollider; // Collider for the spear trap
+        public Animator spikeTrapAnim;
+        public BoxCollider spearTrapCollider; 
         private Vector3 initialColliderPosition;
 
         private void Awake()
@@ -23,7 +23,7 @@ namespace EK
 
         private void Update()
         {
-            // Update collider position based on spear animation
+            
             if (spikeTrapAnim.GetCurrentAnimatorStateInfo(0).IsName("Open") ||
                 spikeTrapAnim.GetCurrentAnimatorStateInfo(0).IsName("Close"))
             {
@@ -33,8 +33,7 @@ namespace EK
 
         private Vector3 GetUpdatedColliderPosition()
         {
-            // Calculate the new position for the collider based on the animation
-            // This is a placeholder calculation; adjust it based on your specific animation
+            
             float offsetY = spikeTrapAnim.GetFloat("SpearHeight");
             return new Vector3(initialColliderPosition.x, initialColliderPosition.y + offsetY, initialColliderPosition.z);
         }
@@ -43,22 +42,19 @@ namespace EK
         {
             while (true)
             {
-                // Play open animation
+                
                 spikeTrapAnim.SetTrigger("open");
-                // Wait 2 seconds
+                
                 yield return new WaitForSeconds(2);
-                // Play close animation
+                
                 spikeTrapAnim.SetTrigger("close");
-                // Wait 2 seconds
+                
                 yield return new WaitForSeconds(2);
             }
         }
 
         public void ResetTrigger()
         {
-            Debug.Log("ResetTrigger called"); // Debug log to confirm the method is called
-
-            // Access the child object and reset the trigger
             Transform spearTrapCollider = transform.Find("SpearTrapCollider");
             if (spearTrapCollider != null)
             {
