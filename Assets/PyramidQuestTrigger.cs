@@ -14,7 +14,6 @@ namespace EK
                 if (questManager != null && questManager.currentQuestIndex == 1) 
                 {
                     questManager.CompleteQuest();
-                    Debug.Log("Pyramid quest completed");
                 }
             }
         }

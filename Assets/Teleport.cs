@@ -4,16 +4,21 @@ using UnityEngine;
 
 public class Teleport : MonoBehaviour
 {
-    public Transform player, destination;
-    public GameObject playerPlayer;
+    public Transform player;
+    public Transform[] destinations;
+    public GameObject playerGameObject;
 
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            playerPlayer.SetActive(false);
-            player.position = destination.position;
-            playerPlayer.SetActive(true);
+            playerGameObject.SetActive(false);
+            int randomIndex = Random.Range(0, destinations.Length);
+            Transform randomDestination = destinations[randomIndex];
+
+            player.position = randomDestination.position;
+
+            playerGameObject.SetActive(true);
         }
     }
 }
