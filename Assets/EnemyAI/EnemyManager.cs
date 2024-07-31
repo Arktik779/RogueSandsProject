@@ -1,17 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
+using System;
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace EK 
+namespace EK
 {
     public class EnemyManager : CharacterManager
     {
+        public event Action OnDeath; // Event for when the enemy dies
         EnemyLocomotionManager enemyLocomotionManager;
         EnemyAnimatorManager enemyAnimationManager;
         EnemyStats enemyStats;
-
 
         public State currentState;
         public CharacterStats currentTarget;
@@ -23,15 +21,14 @@ namespace EK
         public float rotationSpeed = 15;
         public float maximumAttackRange = 1.5f;
 
-
         [Header("A.I Settings")]
         public float detectionRadius = 20;
-        // the higher or lower those angles are, the greater detection field of view is 
         public float maximumDetectionAngle = 80;
         public float minimumDetectionAngle = -80;
 
         public float currentRecoveryTime = 0;
-        private void Awake() 
+
+        private void Awake()
         {
             enemyLocomotionManager = GetComponent<EnemyLocomotionManager>();
             enemyAnimationManager = GetComponentInChildren<EnemyAnimatorManager>();
@@ -52,13 +49,19 @@ namespace EK
             HandleStateMachine();
 
             isInteracting = enemyAnimationManager.anim.GetBool("isInteracting");
-            //enemyAnimationManager.anim.SetBool("isDead", enemyStats.isDead);
+
+            if (enemyStats.isDead && OnDeath != null)
+            {
+                Debug.Log($"{gameObject.name} is dead, invoking OnDeath event.");
+                OnDeath.Invoke(); // Trigger the OnDeath event
+                OnDeath = null; // Unsubscribe all listeners to prevent multiple invocations
+            }
         }
 
         private void LateUpdate()
         {
             navmeshAgent.transform.localPosition = Vector3.zero;
-            navmeshAgent.transform.localRotation = Quaternion.identity;  
+            navmeshAgent.transform.localRotation = Quaternion.identity;
         }
 
         private void HandleStateMachine()
@@ -66,7 +69,7 @@ namespace EK
             if (enemyStats.isDead)
                 return;
 
-            else if (currentState != null)
+            if (currentState != null)
             {
                 State nextState = currentState.Tick(this, enemyStats, enemyAnimationManager);
 
@@ -74,11 +77,10 @@ namespace EK
                 {
                     SwitchToNextState(nextState);
                 }
-
             }
         }
 
-        private void SwitchToNextState(State state) 
+        private void SwitchToNextState(State state)
         {
             currentState = state;
         }
@@ -98,9 +100,9 @@ namespace EK
             }
         }
 
-
-    
-}
-
-
+        public bool IsDead()
+        {
+            return enemyStats.isDead;
+        }
+    }
 }

@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 4017905760900012258}
   - component: {fileID: 5429150584869904289}
   - component: {fileID: 1143950251990863463}
+  - component: {fileID: 6695798112356938042}
   m_Layer: 0
   m_Name: SenderEasyRoom1
-  m_TagString: Untagged
+  m_TagString: RewardRoom1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -62,7 +63,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 34f1ea5c9fd997b4bad9b5adfdf057ac, type: 2}
+  - {fileID: 2100000, guid: 576d86cce8d5f4a4e993c60736a23469, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -99,9 +100,24 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 1, y: 3, z: 1}
   m_Center: {x: 0, y: 1.2, z: 0}
+--- !u!114 &6695798112356938042
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5792138827198894298}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84839da03ab773d4ebc8cf891e06b6dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  destination: {fileID: 0}
+  playerPlayer: {fileID: 0}

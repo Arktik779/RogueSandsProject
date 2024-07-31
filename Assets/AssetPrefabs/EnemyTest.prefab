@@ -245,6 +245,7 @@ MonoBehaviour:
   maxHealth: 0
   currentHealth: 0
   isDead: 0
+  goldCount: 150
   enemyHealthBar: {fileID: 8663341833678675088}
 --- !u!54 &8973369824273407867
 Rigidbody:

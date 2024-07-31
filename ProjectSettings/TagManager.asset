@@ -7,6 +7,7 @@ TagManager:
   - CinemachineTarget
   - Hittable
   - Enemy
+  - RewardRoom1
   layers:
   - Default
   - TransparentFX
