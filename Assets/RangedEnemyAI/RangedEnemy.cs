@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -7,6 +6,8 @@ namespace EK
 {
     public class RangedEnemy : MonoBehaviour
     {
+        public event Action OnDeath; // Event for when the enemy dies
+
         public NavMeshAgent agent;
         public Transform player;
         public Rigidbody RigidBody;
@@ -46,9 +47,13 @@ namespace EK
         private void Update()
         {
             // Check if the enemy's health is 0 or less and update canShoot flag
-            if (enemyStats.currentHealth <= 0)
+            if (enemyStats.currentHealth <= 0 && canShoot)
             {
                 canShoot = false;
+                if (OnDeath != null)
+                {
+                    OnDeath.Invoke();
+                }
             }
 
             // Check for sight and attack range
@@ -68,12 +73,11 @@ namespace EK
             }
         }
 
-
         private void SearchWalkPoint()
         {
             // Calculate random point in range
-            float randomZ = Random.Range(-walkPointRange, walkPointRange);
-            float randomX = Random.Range(-walkPointRange, walkPointRange);
+            float randomZ = UnityEngine.Random.Range(-walkPointRange, walkPointRange);
+            float randomX = UnityEngine.Random.Range(-walkPointRange, walkPointRange);
 
             walkPoint = new Vector3(transform.position.x + randomX, transform.position.y, transform.position.z + randomZ);
 
@@ -119,6 +123,11 @@ namespace EK
             Gizmos.DrawWireSphere(transform.position, attackRange);
             Gizmos.color = Color.green;
             Gizmos.DrawWireSphere(transform.position, sightRange);
+        }
+
+        public bool IsDead()
+        {
+            return enemyStats.currentHealth <= 0;
         }
     }
 }

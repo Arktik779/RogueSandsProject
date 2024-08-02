@@ -8,6 +8,7 @@ TagManager:
   - Hittable
   - Enemy
   - RewardRoom1
+  - RewardRoom2
   layers:
   - Default
   - TransparentFX

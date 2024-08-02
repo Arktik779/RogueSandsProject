@@ -5,34 +5,62 @@ namespace EK
 {
     public class RoomManager : MonoBehaviour
     {
-        public List<EnemyManager> enemies; // Directly assigned enemies in the Room prefab
+        public List<GameObject> portals; // Manually assigned portals in the Room prefab
+        public List<EnemyManager> enemyManagers; // Directly assigned EnemyManager scripts in the Room prefab
+        public List<RangedEnemy> rangedEnemies; // Directly assigned RangedEnemy scripts in the Room prefab
 
-        private List<GameObject> portals = new List<GameObject>();
         private bool isPortalActivated = false;
 
+        private void Start()
+        {
+            Debug.Log("RoomManager Start called.");
+            // Ensure all portals start inactive
+            foreach (GameObject portal in portals)
+            {
+                if (portal != null)
+                {
+                    portal.SetActive(false);
+                    Debug.Log($"Portal {portal.name} set to inactive.");
+                }
+                else
+                {
+                    Debug.LogWarning("Found a null portal in the portals list.");
+                }
+            }
+        }
 
         private void Update()
         {
-            // Continuously check if all enemies are defeated
             CheckEnemiesDefeated();
-        }
-
-        public void AssignPortals(List<GameObject> newPortals)
-        {
-            portals = newPortals;
-            foreach (GameObject portal in portals)
-            {
-                portal.SetActive(false); // Ensure all portals start inactive
-            }
         }
 
         private void CheckEnemiesDefeated()
         {
-            foreach (EnemyManager enemy in enemies)
+            foreach (EnemyManager enemy in enemyManagers)
             {
+                if (enemy == null)
+                {
+                    Debug.LogWarning("Found a null EnemyManager in the enemies list.");
+                    continue;
+                }
+
                 if (!enemy.IsDead())
                 {
-                    return; // If any enemy is not dead, do nothing
+                    return; // If any EnemyManager is not dead, do nothing
+                }
+            }
+
+            foreach (RangedEnemy enemy in rangedEnemies)
+            {
+                if (enemy == null)
+                {
+                    Debug.LogWarning("Found a null RangedEnemy in the enemies list.");
+                    continue;
+                }
+
+                if (!enemy.IsDead())
+                {
+                    return; // If any RangedEnemy is not dead, do nothing
                 }
             }
 
@@ -46,13 +74,24 @@ namespace EK
 
         public void ActivatePortal()
         {
+            Debug.Log("Activating portal");
             if (portals.Count > 0)
             {
-                int randomIndex = Random.Range(0, portals.Count);
-                portals[randomIndex].SetActive(true);
-                
+                int randomIndex = UnityEngine.Random.Range(0, portals.Count);
+                if (portals[randomIndex] != null)
+                {
+                    portals[randomIndex].SetActive(true);
+                    Debug.Log($"Portal {portals[randomIndex].name} is now active.");
+                }
+                else
+                {
+                    Debug.LogError("Randomly selected portal is null.");
+                }
             }
-           
+            else
+            {
+                Debug.LogError("No portals available to activate.");
+            }
         }
     }
 }
