@@ -14,7 +14,7 @@ namespace EK
         {
             "Build a camp tent 0/1",
             "Go inside the pyramid",
-            "Build research laboratory 0/1"
+            "Build a laboratory 0/1"
         };
 
         private void Start()
