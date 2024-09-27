@@ -36,12 +36,23 @@ namespace EK
         public float sightRange, attackRange;
         public bool playerInSightRange, playerInAttackRange;
 
+        // Ragdoll Components
+        private Rigidbody[] ragdollRigidbodies;
+        private Collider[] ragdollColliders;
+
         private void Awake()
         {
             player = GameObject.Find("Player2").transform;
             agent = GetComponent<NavMeshAgent>();
             enemyStats = GetComponent<EnemyStats>();
             rangedAnimatorManager = GetComponentInChildren<RangedEnemyAnimatorManager>();
+
+            // Initialize Ragdoll Components
+            ragdollRigidbodies = GetComponentsInChildren<Rigidbody>();
+            ragdollColliders = GetComponentsInChildren<Collider>();
+
+            // Disable ragdoll components initially
+            SetRagdollState(false);
         }
 
         private void Update()
@@ -50,10 +61,7 @@ namespace EK
             if (enemyStats.currentHealth <= 0 && canShoot)
             {
                 canShoot = false;
-                if (OnDeath != null)
-                {
-                    OnDeath.Invoke();
-                }
+                HandleDeath();
             }
 
             // Check for sight and attack range
@@ -123,6 +131,41 @@ namespace EK
             Gizmos.DrawWireSphere(transform.position, attackRange);
             Gizmos.color = Color.green;
             Gizmos.DrawWireSphere(transform.position, sightRange);
+        }
+
+        private void HandleDeath()
+        {
+            // Call the OnDeath event if needed
+            if (OnDeath != null)
+            {
+                OnDeath.Invoke();
+            }
+
+            // Play death animation
+            rangedAnimatorManager.PlayTargetAnimation("Death_01", true);
+
+            // Stop the agent and disable AI control
+            agent.isStopped = true;
+
+            // Activate ragdoll physics
+            SetRagdollState(true);
+        }
+
+        // Enables or disables ragdoll physics
+        private void SetRagdollState(bool state)
+        {
+            foreach (Rigidbody rb in ragdollRigidbodies)
+            {
+                rb.isKinematic = !state;
+            }
+
+            foreach (Collider col in ragdollColliders)
+            {
+                col.enabled = state;
+            }
+
+            // Disable the main collider
+            GetComponent<Collider>().enabled = !state;
         }
 
         public bool IsDead()

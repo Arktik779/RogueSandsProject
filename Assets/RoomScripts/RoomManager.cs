@@ -13,18 +13,15 @@ namespace EK
 
         private void Start()
         {
-            Debug.Log("RoomManager Start called.");
             // Ensure all portals start inactive
             foreach (GameObject portal in portals)
             {
                 if (portal != null)
                 {
                     portal.SetActive(false);
-                    Debug.Log($"Portal {portal.name} set to inactive.");
                 }
                 else
                 {
-                    Debug.LogWarning("Found a null portal in the portals list.");
                 }
             }
         }
@@ -40,7 +37,6 @@ namespace EK
             {
                 if (enemy == null)
                 {
-                    Debug.LogWarning("Found a null EnemyManager in the enemies list.");
                     continue;
                 }
 
@@ -54,7 +50,6 @@ namespace EK
             {
                 if (enemy == null)
                 {
-                    Debug.LogWarning("Found a null RangedEnemy in the enemies list.");
                     continue;
                 }
 
@@ -74,24 +69,15 @@ namespace EK
 
         public void ActivatePortal()
         {
-            Debug.Log("Activating portal");
             if (portals.Count > 0)
             {
                 int randomIndex = UnityEngine.Random.Range(0, portals.Count);
                 if (portals[randomIndex] != null)
                 {
                     portals[randomIndex].SetActive(true);
-                    Debug.Log($"Portal {portals[randomIndex].name} is now active.");
-                }
-                else
-                {
-                    Debug.LogError("Randomly selected portal is null.");
                 }
             }
-            else
-            {
-                Debug.LogError("No portals available to activate.");
-            }
+
         }
     }
 }
