@@ -9,15 +9,20 @@ namespace EK {
         Animator animator;
 
         public UIEnemyHealthBar enemyHealthBar;
+
+        public bool isBoss;
         private void Awake()
         {
             animator = GetComponentInChildren<Animator>();
+            maxHealth = SetMaxHealthFromHealthLevel();
+            currentHealth = maxHealth;
         }
         private void Start()
         {
-            maxHealth = SetMaxHealthFromHealthLevel();
-            currentHealth = maxHealth;
-            enemyHealthBar.SetMaxHealth(maxHealth);
+            if (!isBoss)
+            {
+                enemyHealthBar.SetMaxHealth(maxHealth);
+            }
         }
         private int SetMaxHealthFromHealthLevel()
         {
