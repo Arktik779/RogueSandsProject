@@ -9,7 +9,7 @@ namespace EK
         public event Action OnDeath; // Event for when the enemy dies
 
         public NavMeshAgent navMeshAgent;  // Reference to NavMeshAgent
-        public Transform currentTarget;    // Reference to the player target
+        public Transform currentTarget;     // Reference to the player target
 
         // Animator manager
         public Animator animator;
@@ -22,10 +22,10 @@ namespace EK
         private BossState currentState;
         public BossState activateState;
         public BossState chaseState;
-        public BossState idleState; // Changed to BossIdleState
+        public BossState idleState; // Use BossIdleState for idle state
 
-        // New flag to indicate if boss is activating
-        public bool isActivating = false;
+        // Reference to camera shake
+        public CameraShake cameraShake;  // CameraShake reference
 
         private void Awake()
         {
@@ -35,43 +35,46 @@ namespace EK
             // Initialize states
             activateState = new ActivateState();
             chaseState = new ChaseState();
-            idleState = new BossIdleState(); // Use BossIdleState instead of IdleState
+            idleState = new BossIdleState(); // Use BossIdleState
         }
 
         private void Start()
         {
-            // Start in idle state to prevent any action until a player is detected
-            SwitchState(idleState);
+            // Ensure NavMeshAgent is disabled at start
+            navMeshAgent.enabled = false;
+            SwitchState(idleState); // Start in the idle state to wait for player detection
+
+            // Attempt to find CameraShake if not already assigned
+            if (cameraShake == null)
+            {
+                cameraShake = FindObjectOfType<CameraShake>();
+                if (cameraShake == null)
+                {
+                    Debug.LogError("CameraShake component not found in the scene!");
+                }
+            }
         }
 
         private void Update()
         {
+            currentState?.UpdateState(this); // Update the current state
             DetectPlayer(); // Continuously detect players
-            currentState?.UpdateState(this); // Update the current state only if it's set
         }
 
         public void SwitchState(BossState newState)
         {
             currentState?.ExitState(this);
             currentState = newState;
-            if (currentState != null)
-            {
-                currentState.EnterState(this);
-                Debug.Log($"Switched to state: {currentState.GetType().Name}");
-            }
+            currentState.EnterState(this);
         }
 
         private void DetectPlayer()
         {
-            Debug.Log("Detecting Player...");
-
             Collider[] colliders = Physics.OverlapSphere(transform.position, detectionRadius, whatIsPlayer);
-            Debug.Log("Number of colliders found: " + colliders.Length);
 
-            if (colliders.Length > 0 && !isActivating) // If any players are detected and not activating
+            if (colliders.Length > 0) // If any players are detected
             {
                 currentTarget = colliders[0].transform; // Set the current target to the first detected player
-                Debug.Log("Current target set to: " + currentTarget.name);
 
                 // Only switch to activate state if currently idle and a target is detected
                 if (currentState is BossIdleState)
@@ -81,12 +84,10 @@ namespace EK
             }
             else
             {
-                // If no player is detected and currently in ChaseState, stop chasing
+                // If no player is detected and currently in ChaseState, clear target
                 if (currentState is ChaseState)
                 {
-                    Debug.Log("No players detected. Stopping chase.");
                     currentTarget = null; // Clear current target
-                    navMeshAgent.isStopped = true; // Stop the NavMeshAgent
                 }
             }
         }
@@ -96,7 +97,6 @@ namespace EK
             // Prevent the boss from bouncing back by making sure we don't apply any physical reactions
             if (collision.gameObject.CompareTag("Player"))
             {
-                Debug.Log("Boss collided with Player but no bouncing will occur.");
                 // No physical interaction should be applied here since the Rigidbody is kinematic
             }
         }
@@ -115,9 +115,7 @@ namespace EK
     {
         public override void EnterState(EnemyBossManager bossManager)
         {
-            Debug.Log("Boss is now idle.");
-            bossManager.navMeshAgent.isStopped = true; // Stop the NavMeshAgent in idle state
-            bossManager.navMeshAgent.velocity = Vector3.zero; // Ensure no movement
+            bossManager.navMeshAgent.enabled = false; // Ensure the NavMeshAgent is disabled
         }
 
         public override void UpdateState(EnemyBossManager bossManager)
@@ -127,56 +125,57 @@ namespace EK
 
         public override void ExitState(EnemyBossManager bossManager)
         {
-            Debug.Log("Boss exited BossIdle State.");
+            // This state does not need to handle re-enabling the agent
         }
     }
 
     // Activate State: Plays activation animation when the player is detected
     public class ActivateState : BossState
     {
-        private CameraShake cameraShake;
-
         public override void EnterState(EnemyBossManager bossManager)
         {
-            Debug.Log("Boss entered Activate State.");
-            bossManager.animator.SetTrigger("Activate"); // Use the Activate trigger
-            bossManager.navMeshAgent.isStopped = true; // Stop the NavMeshAgent during activation
-            bossManager.navMeshAgent.velocity = Vector3.zero; // Ensure no movement
+            bossManager.animator.SetTrigger("Activate");
 
-            // Set activating flag to true
-            bossManager.isActivating = true;
+            // Start coroutine to wait for animation completion and camera shake
+            bossManager.StartCoroutine(WaitForActivationAnimation(bossManager));
+        }
 
-            // Find the CameraShake script and trigger screen shake
-            cameraShake = GameObject.FindObjectOfType<CameraShake>();
+        private System.Collections.IEnumerator WaitForActivationAnimation(EnemyBossManager bossManager)
+        {
+            // Total animation duration
+            float animationDuration = 7f;
 
-            if (cameraShake != null)
+            // Shake parameters
+            float shakeStartTime = animationDuration / 3f; // Shake starts in the middle (3.5 seconds)
+            float shakeDuration = 3f;
+            float shakeMagnitude = 0.2f;
+
+            // Wait for half the duration before triggering the camera shake
+            yield return new WaitForSeconds(shakeStartTime);
+
+            // Trigger camera shake
+            if (bossManager.cameraShake != null)
             {
-                cameraShake.TriggerShake(1f, 0.3f); // Trigger a shake with a duration of 1 second and magnitude of 0.3
+                bossManager.cameraShake.TriggerShake(shakeDuration, shakeMagnitude);
+                Debug.Log("Camera Shake triggered.");
             }
+
+            // Continue waiting for the rest of the animation
+            yield return new WaitForSeconds(animationDuration - shakeStartTime);
+
+            // After the animation completes, enable NavMeshAgent and switch to ChaseState
+            bossManager.navMeshAgent.enabled = true;
+            bossManager.SwitchState(bossManager.chaseState);
         }
 
         public override void UpdateState(EnemyBossManager bossManager)
         {
-            // Check if the activation animation is finished and target is not null
-            AnimatorStateInfo stateInfo = bossManager.animator.GetCurrentAnimatorStateInfo(0);
-
-            if (stateInfo.normalizedTime >= 1f && bossManager.currentTarget != null)
-            {
-                Debug.Log("Boss completed activation animation, starting chase.");
-                bossManager.SwitchState(bossManager.chaseState); // Switch to chase state
-            }
-            else if (bossManager.currentTarget == null)
-            {
-                Debug.Log("Current target is lost. Exiting activation state.");
-                bossManager.SwitchState(bossManager.idleState); // Return to idle if no target
-            }
+            // No update logic needed; coroutine handles state transition
         }
 
         public override void ExitState(EnemyBossManager bossManager)
         {
-            Debug.Log("Boss exited Activate State.");
-            bossManager.navMeshAgent.isStopped = false; // Allow the NavMeshAgent to move when exiting the activation state
-            bossManager.isActivating = false; // Set activating flag to false
+            // No exit logic needed for activation state
         }
     }
 
@@ -185,29 +184,25 @@ namespace EK
     {
         public override void EnterState(EnemyBossManager bossManager)
         {
-            Debug.Log("Boss entered Chase State.");
-            bossManager.animator.SetTrigger("StartChase"); // Use the StartChase trigger
-            bossManager.navMeshAgent.isStopped = false; // Ensure the nav mesh agent is moving
+            bossManager.animator.SetTrigger("StartChase");
+            // NavMeshAgent is enabled and will chase the player
         }
 
         public override void UpdateState(EnemyBossManager bossManager)
         {
             if (bossManager.currentTarget != null)
             {
-                Debug.Log("Chasing target: " + bossManager.currentTarget.name);
                 bossManager.navMeshAgent.SetDestination(bossManager.currentTarget.position); // Chase player
             }
             else
             {
-                Debug.Log("No current target to chase.");
-                bossManager.navMeshAgent.isStopped = true; // Stop moving if there's no target
+                bossManager.currentTarget = null; // Clear current target if lost
             }
         }
 
         public override void ExitState(EnemyBossManager bossManager)
         {
-            Debug.Log("Boss exited Chase State.");
-            bossManager.navMeshAgent.isStopped = true; // Stop moving when exiting the chase state
+            // No exit logic needed for chase state
         }
     }
 }
